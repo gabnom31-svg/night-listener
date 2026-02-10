@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: #0b1d2a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Microsoft YaHei", sans-serif;
+}
+
+.container {
+  text-align: center;
+}
+
+.text p {
+  margin: 6px 0;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+button {
+  margin-top: 40px;
+  padding: 12px 28px;
+  font-size: 16px;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+}
