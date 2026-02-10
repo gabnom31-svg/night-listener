@@ -1,3 +1,5 @@
 document.getElementById("startBtn").onclick = () => {
-  alert("我在这里。你可以慢慢说。");
+  document.getElementById("hint").innerText = "我在听。";
+  document.getElementById("startBtn").style.opacity = "0.3";
+  document.getElementById("startBtn").innerText = "正在听…";
 };
