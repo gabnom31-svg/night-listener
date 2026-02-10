@@ -1,5 +1,8 @@
-document.getElementById("startBtn").onclick = () => {
-  document.getElementById("hint").innerText = "我在听。";
-  document.getElementById("startBtn").style.opacity = "0.3";
-  document.getElementById("startBtn").innerText = "正在听…";
+const btn = document.getElementById("startBtn");
+const hint = document.getElementById("hint");
+
+btn.onclick = () => {
+  hint.innerText = "我在听。";
+  btn.innerText = "正在听…";
+  btn.disabled = true;
 };
