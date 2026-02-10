@@ -6,8 +6,8 @@ let mediaRecorder;
 let audioChunks = [];
 let recording = false;
 
-startBtn.onclick = async () => {
-  // 第二次点击：停止录音
+startBtn.addEventListener("click", async () => {
+  // 第二次点击：结束
   if (recording) {
     mediaRecorder.stop();
     startBtn.innerText = "已结束";
@@ -16,22 +16,21 @@ startBtn.onclick = async () => {
     return;
   }
 
-  // 第一次点击：开始录音
+  // 第一次点击：开始
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
     mediaRecorder = new MediaRecorder(stream);
     audioChunks = [];
 
-    mediaRecorder.ondataavailable = event => {
-      audioChunks.push(event.data);
+    mediaRecorder.ondataavailable = e => {
+      audioChunks.push(e.data);
     };
 
     mediaRecorder.onstop = () => {
-      const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-      const audioURL = URL.createObjectURL(audioBlob);
-
-      player.src = audioURL;
+      const blob = new Blob(audioChunks, { type: "audio/webm" });
+      const url = URL.createObjectURL(blob);
+      player.src = url;
       player.style.display = "block";
     };
 
@@ -40,9 +39,8 @@ startBtn.onclick = async () => {
     hint.style.opacity = "0";
     startBtn.innerText = "结束倾诉";
     startBtn.classList.add("listening");
-
     recording = true;
-  } catch (err) {
-    alert("无法访问麦克风，请检查权限设置");
+  } catch (e) {
+    alert("无法访问麦克风，请检查浏览器权限");
   }
-};
+});
