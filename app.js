@@ -1,14 +1,23 @@
-const startBtn = document.getElementById("startBtn");
-const hint = document.getElementById("hint");
-const player = document.getElementById("player");
-
+let state = "idle";
 let mediaRecorder;
 let audioChunks = [];
 
-startBtn.onclick = async () => {
+const btn = document.getElementById("actionBtn");
+const hint = document.getElementById("hint");
+const subtitle = document.getElementById("subtitle");
+const player = document.getElementById("player");
+
+btn.onclick = async () => {
+  if (state === "idle") {
+    startListening();
+  } else if (state === "listening") {
+    stopListening();
+  }
+};
+
+async function startListening() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
     mediaRecorder = new MediaRecorder(stream);
     audioChunks = [];
 
@@ -18,21 +27,20 @@ startBtn.onclick = async () => {
       const blob = new Blob(audioChunks, { type: "audio/webm" });
       player.src = URL.createObjectURL(blob);
       player.style.display = "block";
+      state = "ended";
+      btn.innerText = "已结束";
+      hint.innerText = "你刚刚说的话，只留在这里";
     };
 
     mediaRecorder.start();
-
+    state = "listening";
+    btn.innerText = "结束";
     hint.innerText = "我在听。";
-    startBtn.innerText = "结束";
-
-    startBtn.onclick = () => {
-      mediaRecorder.stop();
-      startBtn.innerText = "已结束";
-      startBtn.disabled = true;
-    };
-
   } catch (e) {
-    alert("未获得麦克风权限");
-    console.error(e);
+    alert("无法获取麦克风权限");
   }
-};
+}
+
+function stopListening() {
+  mediaRecorder.stop();
+}

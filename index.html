@@ -10,14 +10,13 @@
   <div class="container">
     <div class="text">
       <div class="title">今夜有人听</div>
-      <div class="subtitle">夜深时刻</div>
+      <div class="subtitle" id="subtitle">夜深时刻</div>
       <div class="hint" id="hint">你可以慢慢说</div>
     </div>
 
-    <button id="startBtn" class="start-btn">开始说话</button>
+    <button id="actionBtn" class="start-btn">开始</button>
 
-    <!-- 注意：audio 在 button 外面 -->
-    <audio id="player" controls></audio>
+    <audio id="player" controls style="display:none;"></audio>
   </div>
 
   <script src="app.js"></script>
