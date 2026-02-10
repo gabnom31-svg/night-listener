@@ -5,53 +5,61 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 100%;
   height: 100%;
-  background: #071b2c;
-  color: #eaeaea;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
-               "Microsoft YaHei", sans-serif;
+               "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #061b2d, #03111d);
+  color: #ffffff;
 }
 
-/* 整个舞台 */
-body {
+.container {
+  min-height: 100vh;
+  padding: 24px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-}
-
-/* 中央容器 */
-#app {
+  align-items: center;
   text-align: center;
-  max-width: 90vw;
 }
 
-/* 主文案 */
-#title {
-  font-size: 18px;
-  line-height: 1.8;
-  margin-bottom: 24px;
+.text {
+  margin-bottom: 40px;
 }
 
-/* 提示语 */
-#hint {
-  margin-top: 12px;
-  font-size: 14px;
-  opacity: 0.9;
+.title {
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  opacity: 0.95;
 }
 
-/* 按钮 */
-button {
-  margin-top: 20px;
-  padding: 10px 22px;
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.hint {
+  font-size: 15px;
+  opacity: 0.75;
+}
+
+.start-btn {
   background: transparent;
-  color: #eaeaea;
+  color: #ffffff;
   border: 1px solid rgba(255,255,255,0.4);
-  font-size: 14px;
+  padding: 14px 36px;
+  font-size: 15px;
+  letter-spacing: 1px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-button:disabled {
-  opacity: 0.4;
+.start-btn:active {
+  transform: scale(0.98);
+}
+
+.start-btn.listening {
+  opacity: 0.35;
   cursor: default;
 }
