@@ -23,14 +23,36 @@ async function startListening() {
 
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
-    mediaRecorder.onstop = () => {
-      const blob = new Blob(audioChunks, { type: "audio/webm" });
-      player.src = URL.createObjectURL(blob);
-      player.style.display = "block";
-      state = "ended";
-      btn.innerText = "已结束";
-      hint.innerText = "你刚刚说的话，只留在这里";
-    };
+    mediaRecorder.onstop = async () => {
+    const blob = new Blob(audioChunks, { type: "audio/webm" });
+
+    player.src = URL.createObjectURL(blob);
+    player.style.display = "block";
+
+    state = "ended";
+    btn.innerText = "已结束";
+    hint.innerText = "正在保存你的声音…";
+
+    // 🔥 上传到服务器
+    const formData = new FormData();
+    formData.append("audio", blob);
+
+    try {
+        const response = await fetch("http://localhost:5000/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+        console.log("服务器返回：", result);
+
+        hint.innerText = "你刚刚说的话，已安全保存。";
+    } catch (error) {
+        console.error("上传失败：", error);
+        hint.innerText = "保存失败，请检查服务器。";
+    }
+};
+
 
     mediaRecorder.start();
     state = "listening";
